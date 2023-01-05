@@ -16,6 +16,17 @@ use Picqer\Barcode\BarcodeGeneratorPNG;
 #[Route("/student")]
 class StudentController extends AbstractController
 {
+    #[Route('/deleteAll', name: 'app_student_delete_all', methods: ['GET'])]
+    public function deleteAll(StudentRepository $studentRepository): Response
+    {
+        $students = $studentRepository->findAll();
+
+        foreach ($students as $student) {
+            $studentRepository->remove($student, true);
+        }
+        return $this->redirectToRoute("app_student_index", [], RESPONSE::HTTP_SEE_OTHER);
+    }
+
     #[Route("/", name: "app_student_index", methods: ["GET"])]
     public function index(StudentRepository $studentRepository): Response
     {

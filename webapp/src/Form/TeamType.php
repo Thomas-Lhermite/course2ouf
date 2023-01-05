@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Team;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,7 +14,11 @@ class TeamType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('Grades')
+            ->add('Grades')->add("Gender", ChoiceType::class, ["choices"=> [
+                "Homme" => "Homme",
+                "Femme" => "Femme",
+                "Mixte" => "Mixte"
+            ]])
         ;
     }
 

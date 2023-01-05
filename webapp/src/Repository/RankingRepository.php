@@ -73,6 +73,12 @@ class RankingRepository extends ServiceEntityRepository
 
     public function getWomenRunners(): array
     {
+        /*
+        select * from tbl_student 
+        join tbl_ranking on tbl_student.id = tbl_ranking.student_id 
+        where tbl_student.gender = 'Femme' 
+        order by tbl_ranking.endrun ASC ;
+        */
         return $this->createQueryBuilder('r')
             ->select('r')
             ->innerJoin('App\Entity\Student', 's', 'WITH', 'r.Student = s.id')

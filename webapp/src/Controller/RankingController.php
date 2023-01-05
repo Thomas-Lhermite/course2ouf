@@ -38,6 +38,17 @@ class RankingController extends AbstractController
         ]);
     }
 
+    #[Route('/deleteAll', name: 'app_ranking_delete_all', methods: ['GET'])]
+    public function deleteAll(RankingRepository $rankingRepository): Response
+    {
+        $rankings = $rankingRepository->findAll();
+
+        foreach ($rankings as $ranking) {
+            $rankingRepository->remove($ranking, true);
+        }
+        return $this->redirectToRoute("app_ranking_index", [], RESPONSE::HTTP_SEE_OTHER);
+    }
+
     #[Route('/new', name: 'app_ranking_new', methods: ['GET', 'POST'])]
     public function new(Request $request, RankingRepository $rankingRepository): Response
     {

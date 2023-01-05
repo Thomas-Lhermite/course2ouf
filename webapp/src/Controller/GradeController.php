@@ -13,6 +13,17 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/grade')]
 class GradeController extends AbstractController
 {
+    #[Route('/deleteAll', name: 'app_grade_delete_all', methods: ['GET'])]
+    public function deleteAll(GradeRepository $gradeRepository): Response
+    {
+        $grades = $gradeRepository->findAll();
+
+        foreach ($grades as $grade) {
+            $gradeRepository->remove($grade, true);
+        }
+        return $this->redirectToRoute("app_grade_index", [], RESPONSE::HTTP_SEE_OTHER);
+    }
+    
     #[Route('/', name: 'app_grade_index', methods: ['GET'])]
     public function index(GradeRepository $gradeRepository): Response
     {

@@ -21,6 +21,17 @@ class RaceController extends AbstractController
         ]);
     }
 
+    #[Route('/deleteAll', name: 'app_race_delete_all', methods: ['GET'])]
+    public function deleteAll(RaceRepository $raceRepository): Response
+    {
+        $races = $raceRepository->findAll();
+
+        foreach ($races as $race) {
+            $raceRepository->remove($race, true);
+        }
+        return $this->redirectToRoute("app_race_index", [], RESPONSE::HTTP_SEE_OTHER);
+    }
+    
     #[Route("/new", name: "app_race_new", methods: ["GET", "POST"])]
     public function new(
         Request $request,
