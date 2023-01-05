@@ -25,10 +25,14 @@ class Grade
     #[ORM\ManyToMany(targetEntity: Ranking::class, mappedBy: 'Grade')]
     private Collection $rankings;
 
+    #[ORM\ManyToMany(targetEntity: Team::class, mappedBy: 'Grades')]
+    private Collection $teams;
+
     public function __construct()
     {
         $this->students = new ArrayCollection();
         $this->rankings = new ArrayCollection();
+        $this->teams = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -105,6 +109,33 @@ class Grade
     {
         if ($this->rankings->removeElement($ranking)) {
             $ranking->removeGrade($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Team>
+     */
+    public function getTeams(): Collection
+    {
+        return $this->teams;
+    }
+
+    public function addTeam(Team $team): self
+    {
+        if (!$this->teams->contains($team)) {
+            $this->teams->add($team);
+            $team->addGrade($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTeam(Team $team): self
+    {
+        if ($this->teams->removeElement($team)) {
+            $team->removeGrade($this);
         }
 
         return $this;
