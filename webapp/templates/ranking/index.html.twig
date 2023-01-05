@@ -9,6 +9,11 @@ block body %}
     <a class="btn" href="rankBy=men">Trier les Hommes</a>
     <a class="btn" href="rankBy=women">Trier les Femmes</a>
     <a class="btn" href="rankBy=grade">Trier en fonction des classes</a>
+    <select name="grade" class="select select-primary w-full max-w-xs" id="grade">
+        {% for grade in grades %}
+        <option value="{{ grade.gradename}}">{{ grade.gradename}}</option>
+        {% endfor %}
+    </select>
 </div>
 <br />
 <table class="table">
@@ -30,12 +35,12 @@ block body %}
                 {{ ranking.Student }}
             </td>
             <td>
-                <a href="{{ path('app_ranking_show', { id: ranking.id }) }}"
-                    >show</a
-                >
-                <a href="{{ path('app_ranking_edit', { id: ranking.id }) }}"
-                    >edit</a
-                >
+                {{ranking.Student.Grade}}
+
+            </td>
+            <td>
+                <a href="{{ path('app_ranking_show', { id: ranking.id }) }}">show</a>
+                <a href="{{ path('app_ranking_edit', { id: ranking.id }) }}">edit</a>
             </td>
         </tr>
         {% else %}

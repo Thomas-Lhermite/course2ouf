@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Ranking;
 use App\Form\RankingType;
+use App\Repository\GradeRepository;
 use App\Repository\RankingRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,10 +15,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class RankingController extends AbstractController
 {
     #[Route('/', name: 'app_ranking_index', methods: ['GET'])]
-    public function index(RankingRepository $rankingRepository): Response
+    public function index(RankingRepository $rankingRepository, GradeRepository $gradeRepository): Response
     {
+        $grades = $gradeRepository->findAll();
         return $this->render('ranking/index.html.twig', [
             'rankings' => $rankingRepository->findAll(),
+            'grades' => $grades,
         ]);
     }
 

@@ -13,7 +13,9 @@ class RaceType extends AbstractType
         FormBuilderInterface $builder,
         array $options
     ): void {
-        $builder->add("start");
+        $builder
+        ->add("start")
+        ->add("Team");
     }
 
     public function configureOptions(OptionsResolver $resolver): void

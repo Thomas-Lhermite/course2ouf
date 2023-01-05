@@ -25,6 +25,9 @@ class Race
     #[ORM\OneToMany(mappedBy: "Race", targetEntity: Ranking::class)]
     private Collection $rankings;
 
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?Team $Team = null;
+
     public function __construct()
     {
         $this->rankings = new ArrayCollection();
@@ -80,5 +83,17 @@ class Race
     public function __toString()
     {
         return $this->start->format('d/m/Y');
+    }
+
+    public function getTeam(): ?Team
+    {
+        return $this->Team;
+    }
+
+    public function setTeam(?Team $Team): self
+    {
+        $this->Team = $Team;
+
+        return $this;
     }
 }

@@ -90,7 +90,13 @@ class RankingRepository extends ServiceEntityRepository
     }
 
     public function getGradeRunners(): array
-    {
+    {   
+        /*
+        select * from tbl_ranking 
+        join tbl_grade on tbl_ranking.id = tbl_grade.ranking_id 
+        where tbl_student.gender = 'Femme' 
+        order by tbl_ranking.endrun ASC ;
+        */
         return $this->createQueryBuilder('r')
             ->select('r')
             ->innerJoin('App\Entity\Grade', 'g', 'WITH', 'r.Grade = g.id')

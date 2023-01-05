@@ -15,6 +15,7 @@
             <tr>
                 <th>Id</th>
                 <th>Start</th>
+                <th>Team</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -23,6 +24,7 @@
             <tr>
                 <td>{{ race.id }}</td>
                 <td>{{ race.start ? race.start|date('d-m-Y') : '' }}</td>
+                <td>{{ race.team }}</td>
                 <td>
                     <a href="{{ path('app_race_show', {'id': race.id}) }}">show</a>
                     <a href="{{ path('app_race_edit', {'id': race.id}) }}">edit</a>
